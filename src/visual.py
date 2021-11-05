@@ -46,6 +46,7 @@ class Window(QMainWindow):
         buttonLayout = QVBoxLayout()
         buttonLayout.addWidget(self.addButton)
         buttonLayout.addWidget(self.deleteButton)
+        buttonLayout.addStretch()
         layout = QVBoxLayout()
         layout.addWidget(self.searchBar)
         layout.addWidget(self.table)
