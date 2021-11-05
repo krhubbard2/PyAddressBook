@@ -8,12 +8,16 @@
 import sys
 
 from PyQt5.QtWidgets import QApplication
+from .database import createConnection
 from .visual import Window
 
 # Main function for PyAddressBook
 def main():
     # Create application
     app = QApplication(sys.argv)
+    # Connect to database
+    if not createConnection("contacts.sqlite"):
+        sys.exit(1)
     # Create main window
     main_window = Window()
     main_window.show()
