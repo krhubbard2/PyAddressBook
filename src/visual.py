@@ -4,10 +4,11 @@
 # visual.py
 
 # GUI for PyAddressBook
-# This application uses and requires PyQt (PyQt5)
+
 
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt
+from PyQt5.QtSql import QSqlQueryModel
 from PyQt5.QtWidgets import (
     QGridLayout,
     QHBoxLayout,
@@ -47,6 +48,9 @@ class Window(QMainWindow):
         # Create Search Bar Widget
         self.label = QLabel('Search:', self)
         self.searchBar = QLineEdit()
+        # TODO: Make working search bar
+        self.searchBar.setText("Under Construction...")
+        # self.searchBar.textChanged.connect(self.search)
 
         # Create Table View Widget
         self.table = QTableView()
@@ -75,9 +79,6 @@ class Window(QMainWindow):
         searchLayout.addWidget(self.searchBar)
         tableLayout = QVBoxLayout()
         tableLayout.addWidget(self.table)
-        # self.layout.addLayout(searchLayout)
-        # self.layout.addLayout(tableLayout)
-        # self.layout.addLayout(buttonLayout)
         gridLayout = QGridLayout()
         gridLayout.addLayout(searchLayout, 0, 0)
         gridLayout.addLayout(tableLayout, 1, 0)
@@ -105,7 +106,7 @@ class Window(QMainWindow):
 
         if messageBox == QMessageBox.Ok:
             self.contactsTableModel.deleteContact(row)
-
+        
 # Add contact dialog
 class AddDialog(QDialog):
     
@@ -166,21 +167,9 @@ class AddDialog(QDialog):
                 )
             self.data = None 
             return
+
         for field in (self.nameField, self.jobField, self.emailField, self.phoneField, self.addressField, self.cityField, self.stateField):
             self.data.append(field.text())
-
-    
-        # for field in (self.nameField, self.jobField, self.emailField):
-        #     if not field.text():
-        #         QMessageBox.critical(
-        #             self,
-        #             "Error!",
-        #             f"You must provide a contact's {field.objectName()}",
-        #         )
-        #         self.data = None  # Reset .data
-        #         return
-
-        #     self.data.append(field.text())
 
         if not self.data:
             return
