@@ -4,6 +4,9 @@ Python developed Address Book for personal project and practice.
 ## Setup
 You will need Python3 and PyQt5 installed on your machine.
 Clone this repository to wherever you'd like.
+```bash
+git clone "https://github.com/krhubbard2/PyAddressBook"
+```
 
 ## Running
 ```bash
