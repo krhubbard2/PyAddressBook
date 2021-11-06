@@ -9,6 +9,7 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (
+    QGridLayout,
     QHBoxLayout,
     QMainWindow,
     QWidget,    
@@ -21,6 +22,7 @@ from PyQt5.QtWidgets import (
     QDialogButtonBox,
     QFormLayout,
     QMessageBox,
+    QLabel,
 )
 
 from .table import ContactsTableModel
@@ -43,7 +45,8 @@ class Window(QMainWindow):
     # Initialize main window UI
     def initUI(self):
         # Create Search Bar Widget
-        self.searchBar = QLineEdit("Search")
+        self.label = QLabel('Search:', self)
+        self.searchBar = QLineEdit()
 
         # Create Table View Widget
         self.table = QTableView()
@@ -67,12 +70,21 @@ class Window(QMainWindow):
         buttonLayout.addWidget(self.addButton)
         buttonLayout.addWidget(self.deleteButton)
         buttonLayout.addStretch()
-        layout = QVBoxLayout()
-        layout.addWidget(self.searchBar)
-        layout.addWidget(self.table)
-        self.layout.addLayout(layout)
-        self.layout.addLayout(buttonLayout)
-    
+        searchLayout = QHBoxLayout()
+        searchLayout.addWidget(self.label)
+        searchLayout.addWidget(self.searchBar)
+        tableLayout = QVBoxLayout()
+        tableLayout.addWidget(self.table)
+        # self.layout.addLayout(searchLayout)
+        # self.layout.addLayout(tableLayout)
+        # self.layout.addLayout(buttonLayout)
+        gridLayout = QGridLayout()
+        gridLayout.addLayout(searchLayout, 0, 0)
+        gridLayout.addLayout(tableLayout, 1, 0)
+        gridLayout.addLayout(buttonLayout, 0, 1)
+        gridLayout.setRowStretch(1,4)
+        self.layout.addLayout(gridLayout)
+
     def openAddDialog(self):
         dialog = AddDialog(self)
         if dialog.exec() == QDialog.Accepted:
