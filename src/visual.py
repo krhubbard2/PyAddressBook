@@ -61,7 +61,7 @@ class Window(QMainWindow):
         self.addButton.clicked.connect(self.openAddDialog)
         self.deleteButton = QPushButton("Delete")
         self.deleteButton.clicked.connect(self.deleteContact)
-        
+
         # GUI Layout
         buttonLayout = QVBoxLayout()
         buttonLayout.addWidget(self.addButton)
@@ -114,11 +114,24 @@ class AddDialog(QDialog):
         self.jobField.setObjectName("Job")
         self.emailField = QLineEdit()
         self.emailField.setObjectName("Email")
+        self.phoneField = QLineEdit()
+        self.phoneField.setObjectName("Phone Number")
+        self.addressField = QLineEdit()
+        self.addressField.setObjectName("Address")
+        self.cityField = QLineEdit()
+        self.cityField.setObjectName("City")
+        self.stateField = QLineEdit()
+        self.stateField.setObjectName("State")
         # Data Fields Layout
         layout = QFormLayout()
         layout.addRow("Name:", self.nameField)
         layout.addRow("Job:", self.jobField)
         layout.addRow("Email:", self.emailField)
+        layout.addRow("Phone Number:", self.phoneField)
+        layout.addRow("Address:", self.addressField)
+        layout.addRow("City", self.cityField)
+        layout.addRow("State:", self.stateField)
+        
         self.layout.addLayout(layout)
         # Add standard buttons to the dialog and connect them
         self.buttonsBox = QDialogButtonBox(self)
@@ -133,17 +146,29 @@ class AddDialog(QDialog):
     def accept(self):
         """Accept the data provided through the dialog."""
         self.data = []
-        for field in (self.nameField, self.jobField, self.emailField):
-            if not field.text():
-                QMessageBox.critical(
+        if not self.nameField.text() or not self.emailField.text():
+            QMessageBox.critical(
                     self,
                     "Error!",
-                    f"You must provide a contact's {field.objectName()}",
+                    f"You must provide at least contact's name and email.",
                 )
-                self.data = None  # Reset .data
-                return
-
+            self.data = None 
+            return
+        for field in (self.nameField, self.jobField, self.emailField, self.phoneField, self.addressField, self.cityField, self.stateField):
             self.data.append(field.text())
+
+    
+        # for field in (self.nameField, self.jobField, self.emailField):
+        #     if not field.text():
+        #         QMessageBox.critical(
+        #             self,
+        #             "Error!",
+        #             f"You must provide a contact's {field.objectName()}",
+        #         )
+        #         self.data = None  # Reset .data
+        #         return
+
+        #     self.data.append(field.text())
 
         if not self.data:
             return
