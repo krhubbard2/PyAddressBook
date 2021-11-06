@@ -17,6 +17,8 @@ from PyQt5.QtWidgets import (
     QLineEdit,
 )
 
+from .table import ContactsTableModel
+
 # Main Window
 class Window(QMainWindow):
     
@@ -29,6 +31,7 @@ class Window(QMainWindow):
         self.layout = QHBoxLayout()
         self.centralWidget.setLayout(self.layout)
 
+        self.contactsTableModel = ContactsTableModel()
         self.initUI()
 
     # Initialize main window UI
@@ -37,6 +40,7 @@ class Window(QMainWindow):
         self.searchBar = QLineEdit("Search")
         # Create Table View Widget
         self.table = QTableView()
+        self.table.setModel(self.contactsTableModel.model)
         self.table.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.table.resizeColumnsToContents()
         # Create Buttons
