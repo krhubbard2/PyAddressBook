@@ -28,5 +28,5 @@ Simply highlight the row you'd like to delete and click the "Delete" button. You
 ### Editing Contacts
 Simply double click the entry that you would like to edit and change any information you'd like. All edits are saved immediately. 
 
-## Coming Soon... Probably.
+## Needs Fixing.
 The search bar currently does... nothing. I hope to implement a working search function.
